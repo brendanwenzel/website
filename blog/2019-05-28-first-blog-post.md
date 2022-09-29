@@ -1,11 +1,11 @@
 ---
-slug: first-blog-post
-title: First Blog Post
+slug: quartermachine
+title: Quarter Machine - Most Disappointing Project
 authors:
-  name: Gao Wei
+  name: Brendan Wenzel
   title: Docusaurus Core Team
-  url: https://github.com/wgao19
-  image_url: https://github.com/wgao19.png
+  url: https://github.com/brendanwenzel
+  image_url: /static/img/profilelogo.png
 tags: [hola, docusaurus]
 ---
 

@@ -12,7 +12,6 @@ function HomepageHeader() {
   return (
     <header className={clsx('hero hero--primary', styles.heroBanner)}>
       <div className="container">
-        <img src="/img/profilelogo.png" class="" width="150px" />
         <h1 className="hero__title">{siteConfig.title}</h1>
         <p className="hero__subtitle">{siteConfig.tagline}</p>
         <div className={styles.buttons}>
@@ -32,7 +31,7 @@ export default function Home() {
   return (
     <Layout
       title={`Brendan Wenzel: Blockchain Developer and Project Builder`}
-      description="I love to build things and trying to break them.">
+      description="I love to build! Custom Defi bots have been my most requested services to deliver.">
       <HomepageHeader />
       <main>
         <HomepageFeatures />

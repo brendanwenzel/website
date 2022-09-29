@@ -7,7 +7,7 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: 'Brendan Wenzel',
-  tagline: 'Blockchain Developer and Business Builder',
+  tagline: 'Blockchain Developer and Project Builder',
   url: 'https://brendanwenzel.com',
   baseUrl: '/',
   onBrokenLinks: 'throw',
@@ -67,9 +67,9 @@ const config = {
             type: 'doc',
             docId: 'intro',
             position: 'left',
-            label: 'Tutorial',
+            label: 'About',
           },
-          {to: '/blog', label: 'Blog', position: 'left'},
+       //   {to: '/blog', label: 'Blog', position: 'left'},
           {
             href: 'https://github.com/brendanwenzel',
             label: 'GitHub',

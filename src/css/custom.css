@@ -5,8 +5,8 @@
  */
 
 /* You can override the default Infima variables here. */
-:root {
-  --ifm-color-primary: #2e6b85;
+/* :root {
+  --ifm-color-primary: #ffc400;
   --ifm-color-primary-dark: #205a72;
   --ifm-color-primary-darker: #174a5f;
   --ifm-color-primary-darkest: #0d394d;
@@ -15,10 +15,10 @@
   --ifm-color-primary-lightest: #67a5c0;
   --ifm-code-font-size: 95%;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
-}
+} */
 
 /* For readability concerns, you should choose a lighter palette in dark mode. */
-[data-theme='dark'] {
+/* [data-theme='dark'] {
   --ifm-color-primary: #4099c0;
   --ifm-color-primary-dark: #368cb1;
   --ifm-color-primary-darker: #25799d;
@@ -27,4 +27,15 @@
   --ifm-color-primary-lighter: #67bfe4;
   --ifm-color-primary-lightest: #84d5f7;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+} */
+
+.button {
+  background-color: #2e95d1;
+  border: 0px;
+  border-radius: 0px;
+}
+
+.button.button--secondary {
+  color: #FFF;
+  font-size: 1.5em;
 }
