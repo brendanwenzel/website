@@ -4,32 +4,32 @@ import styles from './styles.module.css';
 
 const FeatureList = [
   {
-    title: 'Custom Defi Bots',
+    title: 'Building Defi Bots',
     Svg: require('@site/static/img/flask.svg').default,
     description: (
       <>
-        There are many use cases in Defi to automate your strategies. The most popular
-        is reinvesting staking rewards automatically.
+        The biggest advantage of DEFI is the ability to automate systems and
+        create bots that do services for protocols for rewards.        
       </>
     ),
   },
   {
-    title: 'Focus on What Matters',
+    title: 'Finding Technical Solutions',
     Svg: require('@site/static/img/box.svg').default,
     description: (
       <>
-        Docusaurus lets you focus on your docs, and we&apos;ll do the chores. Go
-        ahead and move your docs into the <code>docs</code> directory.
+        The idea is that software should make our lives more effective AND efficient.
+        My skill is simplifying and consolidating stacks to work for you.
       </>
     ),
   },
   {
-    title: 'Digital Marketing',
+    title: 'Growing Digital Businesses',
     Svg: require('@site/static/img/marketing.svg').default,
     description: (
       <>
-        Extend or customize your website layout by reusing React. Docusaurus can
-        be extended while reusing the same header and footer.
+        Most of my adult life has been building cashflow on the internet through
+        building audiences and profitably using paid advertising.
       </>
     ),
   },

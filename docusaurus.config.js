@@ -6,7 +6,7 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: 'Brendan Wenzel',
+  title: 'Building Defi Bots and Digital Businesses',
   tagline: 'Blockchain Developer and Project Builder',
   url: 'https://brendanwenzel.com',
   baseUrl: '/',
