@@ -81,12 +81,20 @@ const config = {
         style: 'dark',
         links: [
           {
-            title: 'Docs',
+            title: 'Learn More',
             items: [
               {
-                label: 'Tutorial',
-                to: '/docs/intro',
+                label: 'Personal Life',
+                to: '/docs/category/personal-life',
               },
+              {
+                label: "Growing Businesses",
+                to: '/docs/category/growing-businesses',
+              },
+              {
+                label: "Developer Journey",
+                to: '/docs/category/developer-journey',
+              }
             ],
           },
           {
@@ -120,7 +128,7 @@ const config = {
             ],
           },
         ],
-        copyright: `Copyright © ${new Date().getFullYear()} Brendan Wenzel. Built with Docusaurus.`,
+        copyright: `Copyright © ${new Date().getFullYear()} Brendan Wenzel`,
       },
       prism: {
         theme: lightCodeTheme,

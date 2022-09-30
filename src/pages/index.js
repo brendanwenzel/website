@@ -31,7 +31,7 @@ export default function Home() {
   return (
     <Layout
       title={`Brendan Wenzel: Blockchain Developer and Project Builder`}
-      description="I love to build! Custom Defi bots have been my most requested services to deliver.">
+      description="I love to build cool stuff!">
       <HomepageHeader />
       <main>
         <HomepageFeatures />

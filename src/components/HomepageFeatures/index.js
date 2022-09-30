@@ -5,7 +5,7 @@ import styles from './styles.module.css';
 const FeatureList = [
   {
     title: 'Custom Defi Bots',
-    Svg: require('@site/static/img/marketing.svg').default,
+    Svg: require('@site/static/img/flask.svg').default,
     description: (
       <>
         There are many use cases in Defi to automate your strategies. The most popular
@@ -15,7 +15,7 @@ const FeatureList = [
   },
   {
     title: 'Focus on What Matters',
-    Svg: require('@site/static/img/undraw_docusaurus_tree.svg').default,
+    Svg: require('@site/static/img/box.svg').default,
     description: (
       <>
         Docusaurus lets you focus on your docs, and we&apos;ll do the chores. Go
@@ -53,7 +53,6 @@ export default function HomepageFeatures() {
   return (
     <section className={styles.features}>
       <div className="container">
-        <h1 className="text--center padding-horiz--md hero__title">My Superpowers</h1>
         <div className="row">
           {FeatureList.map((props, idx) => (
             <Feature key={idx} {...props} />
