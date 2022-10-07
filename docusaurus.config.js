@@ -78,20 +78,20 @@ const config = {
         links: [
           {
             title: 'Learn More',
-            items: [
-              {
-                label: 'Personal Life',
-                to: '/docs/category/personal-life',
-              },
-              {
-                label: "Growing Businesses",
-                to: '/docs/category/growing-businesses',
-              },
-              {
-                label: "Developer Journey",
-                to: '/docs/category/developer-journey',
-              }
-            ],
+            // items: [
+            //   {
+            //     label: 'Personal Life',
+            //     to: '/docs/category/personal-life',
+            //   },
+            //   {
+            //     label: "Growing Businesses",
+            //     to: '/docs/category/growing-businesses',
+            //   },
+            //   {
+            //     label: "Developer Journey",
+            //     to: '/docs/category/developer-journey',
+            //   }
+            // ],
           },
           {
             title: 'Connect',
