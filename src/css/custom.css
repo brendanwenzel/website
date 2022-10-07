@@ -29,13 +29,13 @@
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
 } */
 
-.button {
-  background-color: #2e95d1;
-  border: 0px;
-  border-radius: 0px;
+.hero .button {
+  background: url(/static/img/GitHub-Mark-32px.png) 10% 50% no-repeat;
+  background-color: var(--ifm-button-background-color);
+  width: 150px;
+  padding: 10px 10px 10px 50px;
 }
 
 .button.button--secondary {
-  color: #FFF;
   font-size: 1.5em;
 }
