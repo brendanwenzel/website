@@ -42,8 +42,8 @@ function Feature({Svg, title, description}) {
         <Svg className={styles.featureSvg} role="img" />
       </div>
       <div className="text--center padding-horiz--md">
-        <h3>Degen Developer</h3>
-        <p>Creating tools and building projects for crypto degens.</p>
+        <h3>{title}</h3>
+        <p>{description}</p>
       </div>
     </div>
   );
