@@ -4,32 +4,32 @@ import styles from './styles.module.css';
 
 const FeatureList = [
   {
-    title: 'Building Defi Bots',
+    title: 'Blockchain Tools and Dapps',
     Svg: require('@site/static/img/flask.svg').default,
     description: (
       <>
-        The biggest advantage of DEFI is the ability to automate systems and
-        create bots that do services for protocols for rewards.        
+        Using node.js or Rust to create dapps and tools that
+        interact with blockchains.
       </>
     ),
   },
   {
-    title: 'Finding Technical Solutions',
+    title: 'Smart Contract Development',
     Svg: require('@site/static/img/box.svg').default,
     description: (
       <>
-        The idea is that software should make our lives more effective AND efficient.
-        My skill is simplifying and consolidating stacks to work for you.
+        Clean and effecient smart contracts written in Solidity
+        for token launches, NFTs, staking and more.
       </>
     ),
   },
   {
-    title: 'Growing Digital Businesses',
+    title: 'Marketing Strategy',
     Svg: require('@site/static/img/marketing.svg').default,
     description: (
       <>
-        Most of my adult life has been building cashflow on the internet through
-        building audiences and profitably using paid advertising.
+        Strategies that focus on profitablity as the core metric.
+        The idea is to create cashflow for the chance to scale.
       </>
     ),
   },
@@ -42,8 +42,8 @@ function Feature({Svg, title, description}) {
         <Svg className={styles.featureSvg} role="img" />
       </div>
       <div className="text--center padding-horiz--md">
-        <h3>{title}</h3>
-        <p>{description}</p>
+        <h3>Degen Developer</h3>
+        <p>Creating tools and building projects for crypto degens.</p>
       </div>
     </div>
   );
