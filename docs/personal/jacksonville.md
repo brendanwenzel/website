@@ -1,1 +1,0 @@
-# Growing Up in Jacksonville

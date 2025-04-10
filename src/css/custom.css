@@ -5,37 +5,53 @@
  */
 
 /* You can override the default Infima variables here. */
-/* :root {
-  --ifm-color-primary: #ffc400;
-  --ifm-color-primary-dark: #205a72;
-  --ifm-color-primary-darker: #174a5f;
-  --ifm-color-primary-darkest: #0d394d;
-  --ifm-color-primary-light: #3a7690;
-  --ifm-color-primary-lighter: #4c8ba6;
-  --ifm-color-primary-lightest: #67a5c0;
+:root {
+  --ifm-color-primary: #3b82f6;
+  --ifm-color-primary-dark: #1d66ef;
+  --ifm-color-primary-darker: #115be8;
+  --ifm-color-primary-darkest: #0e4bbf;
+  --ifm-color-primary-light: #599ef7;
+  --ifm-color-primary-lighter: #6da9f8;
+  --ifm-color-primary-lightest: #9ac2fa;
   --ifm-code-font-size: 95%;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
-} */
+  
+  /* Custom colors */
+  --custom-background-light: #f8fafc;
+  --custom-text-dark: #1e293b;
+  --custom-text-light: #64748b;
+  --custom-border-color: #e2e8f0;
+}
 
 /* For readability concerns, you should choose a lighter palette in dark mode. */
-/* [data-theme='dark'] {
-  --ifm-color-primary: #4099c0;
-  --ifm-color-primary-dark: #368cb1;
-  --ifm-color-primary-darker: #25799d;
-  --ifm-color-primary-darkest: #1f6c8e;
-  --ifm-color-primary-light: #58afd5;
-  --ifm-color-primary-lighter: #67bfe4;
-  --ifm-color-primary-lightest: #84d5f7;
+[data-theme='dark'] {
+  --ifm-color-primary: #60a5fa;
+  --ifm-color-primary-dark: #3e92f9;
+  --ifm-color-primary-darker: #2d88f8;
+  --ifm-color-primary-darkest: #0b6df0;
+  --ifm-color-primary-light: #82b8fb;
+  --ifm-color-primary-lighter: #93c2fb;
+  --ifm-color-primary-lightest: #c5defe;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
-} */
-
-.hero .button {
-  background: url(/static/img/GitHub-Mark-32px.png) 10% 50% no-repeat;
-  background-color: var(--ifm-button-background-color);
-  width: 150px;
-  padding: 10px 10px 10px 50px;
+  
+  /* Custom colors for dark mode */
+  --custom-background-light: #1e293b;
+  --custom-text-dark: #f8fafc;
+  --custom-text-light: #cbd5e1;
+  --custom-border-color: #334155;
 }
 
-.button.button--secondary {
-  font-size: 1.5em;
+/* Global styles */
+.container {
+  max-width: 1200px;
+  padding: 0 1.5rem;
 }
+
+.section-title {
+  margin-bottom: 2rem;
+  text-align: center;
+  font-size: 2.25rem;
+}
+
+/* Add FontAwesome support */
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css');
