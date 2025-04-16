@@ -4,7 +4,7 @@ sidebar_position: 2
 
 # Terms of Service
 
-Last updated: [Current Date]
+Last updated: 04/16/2025
 
 ## 1. Acceptance of Terms
 
@@ -59,5 +59,4 @@ These Terms shall be governed by and construed in accordance with the laws of [Y
 ## 10. Contact Information
 
 If you have any questions about these Terms, please contact us at:
-- Email: [Your Contact Email]
-- Address: [Your Business Address] 
+- Email: contact@brendanwenzel.com 

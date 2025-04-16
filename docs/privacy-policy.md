@@ -4,7 +4,7 @@ sidebar_position: 1
 
 # Privacy Policy
 
-Last updated: [Current Date]
+Last updated: 04/16/2025
 
 ## Introduction
 
@@ -119,5 +119,4 @@ We may update this Privacy Policy periodically. We will notify you of any change
 ## Contact Us
 
 If you have any questions about this Privacy Policy, please contact us at:
-- Email: [Your Contact Email]
-- Address: [Your Business Address] 
+- Email: contact@brendanwenzel.com
