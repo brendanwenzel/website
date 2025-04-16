@@ -132,6 +132,14 @@ const config: Config = {
               label: 'Portfolio',
               to: '/docs/portfolio',
             },
+            {
+              label: 'Privacy Policy',
+              to: '/docs/privacy-policy',
+            },
+            {
+              label: 'Terms of Service',
+              to: '/docs/terms-of-service',
+            },
           ],
         },
       ],
