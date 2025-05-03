@@ -7,6 +7,10 @@ export default (function () {
 
   return {
     onRouteUpdate({location}) {
+      // Log environment variables to check if they are injected
+      console.log('DOCUSAURUS_WEBHOOK_URL:', process.env.DOCUSAURUS_WEBHOOK_URL);
+      console.log('DOCUSAURUS_WEBHOOK_SECRET:', process.env.DOCUSAURUS_WEBHOOK_SECRET);
+
       // This function runs every time the route changes in the browser
       const params = new URLSearchParams(location.search);
       const code = params.get('code');
