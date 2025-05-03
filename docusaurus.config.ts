@@ -150,6 +150,11 @@ const config: Config = {
       darkTheme: prismThemes.dracula,
     },
   } satisfies Preset.ThemeConfig,
+
+  // Add the client module here
+  clientModules: [
+    require.resolve('./src/clientModules/webhookTrigger.js'),
+  ],
 };
 
 export default config;
