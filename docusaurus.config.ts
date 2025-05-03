@@ -4,10 +4,20 @@ import type * as Preset from '@docusaurus/preset-classic';
 
 // This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
 
+// Read environment variables during build time
+const webhookUrl = process.env.DOCUSAURUS_WEBHOOK_URL || '';
+const webhookSecret = process.env.DOCUSAURUS_WEBHOOK_SECRET || '';
+
 const config: Config = {
   title: 'Brendan Wenzel',
   tagline: 'Director of Social Commerce',
   favicon: 'img/favicon.ico',
+
+  // Store environment variables in customFields to make them accessible in client side code
+  customFields: {
+    webhookUrl,
+    webhookSecret,
+  },
 
   // Set the production url of your site here
   url: 'https://www.brendanwenzel.com',
@@ -150,11 +160,6 @@ const config: Config = {
       darkTheme: prismThemes.dracula,
     },
   } satisfies Preset.ThemeConfig,
-
-  // Add the client module here
-  clientModules: [
-    require.resolve('./src/clientModules/webhookTrigger.js'),
-  ],
 };
 
 export default config;
