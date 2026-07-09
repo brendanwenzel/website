@@ -1,0 +1,25 @@
+# Add to /etc/caddy/Caddyfile on the Hetzner box.
+#
+# Caddy provisions and renews the TLS certificate for this hostname
+# automatically — just point telemetry.brendanwenzel.com's DNS at the box.
+
+telemetry.brendanwenzel.com {
+	reverse_proxy 127.0.0.1:8088 {
+		# Caddy >= 2.6 auto-detects text/event-stream and disables response
+		# buffering, but pin it explicitly so SSE can never be buffered by a
+		# future config change.
+		flush_interval -1
+	}
+
+	# CORS is handled IN THE APP (exact-origin allowlist via ALLOWED_ORIGIN).
+	# Do NOT add Access-Control-Allow-Origin headers here — a wildcard added
+	# at the proxy would silently widen the app's policy.
+
+	# Rate limiting: stock Caddy has none built in. If this endpoint gets
+	# abused, options in rough order of effort:
+	#   1. xcaddy build with github.com/mholt/caddy-ratelimit + a rate_limit block
+	#   2. fail2ban on Caddy's access logs
+	#   3. an nftables per-IP connection cap on :443
+	# Low urgency: the endpoint is read-only and every payload is sanitized;
+	# the realistic risk is connection exhaustion, not data exposure.
+}

@@ -1,0 +1,53 @@
+# /etc/systemd/system/telemetry-backend.service
+#
+# IMPORTANT: this service must be able to READ THE JOURNAL as a non-root user.
+# That is what SupplementaryGroups=systemd-journal grants — without it, the
+# spawned `journalctl` exits immediately with a permission error and the
+# backend loops on respawn backoff.
+#
+# DynamicUser=yes composes with SupplementaryGroups. If you prefer a static
+# user instead, replace DynamicUser with:
+#     User=telemetry
+#     Group=telemetry
+#     SupplementaryGroups=systemd-journal
+# and create it with:  useradd -r -s /usr/sbin/nologin -G systemd-journal telemetry
+
+[Unit]
+Description=Telemetry SSE backend (sanitized journald events)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+ExecStart=/usr/local/bin/telemetry-backend
+DynamicUser=yes
+SupplementaryGroups=systemd-journal
+
+Environment=UNITS=capi-bridge,spend-sheets,sample-automation
+Environment=BIND_ADDR=127.0.0.1:8088
+Environment=BUFFER_SIZE=50
+Environment=ALLOWED_ORIGIN=https://www.brendanwenzel.com
+Environment=RUST_LOG=telemetry_backend=info
+
+Restart=on-failure
+RestartSec=2
+
+# Hardening — the service reads the journal and binds one loopback port;
+# it needs nothing else.
+NoNewPrivileges=yes
+ProtectSystem=strict
+ProtectHome=yes
+PrivateTmp=yes
+PrivateDevices=yes
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectControlGroups=yes
+RestrictAddressFamilies=AF_INET AF_INET6 AF_UNIX
+RestrictNamespaces=yes
+LockPersonality=yes
+MemoryDenyWriteExecute=yes
+CapabilityBoundingSet=
+SystemCallFilter=@system-service
+SystemCallErrorNumber=EPERM
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,19 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+/* Tailwind v4 CSS-first config — no tailwind.config.js.
+   Accent palette is mirrored in lib/nodes-config.ts (CSS can't feed three.js);
+   change both together. */
+@theme {
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+
+  --color-accent-capi: #34d399;    /* CAPI Bridge — emerald     */
+  --color-accent-spend: #38bdf8;   /* Spend → Sheets — sky      */
+  --color-accent-sample: #fbbf24;  /* Sample Automation — amber */
+}
+
+body {
+  background-color: var(--color-zinc-950);
+  color: var(--color-zinc-300);
+}
