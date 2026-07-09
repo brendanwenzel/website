@@ -59,11 +59,6 @@ anything off-contract — garbage on the stream can't break the hero.
   diagram, text-only updates). The ticker is live in every tier.
 - **Pausing**: rendering stops entirely (`frameloop="never"`) when the tab is
   hidden or the hero is scrolled off-screen (`hooks/useHeroActive.ts`).
-- **OAuth relay** (`middleware.ts`): `?code=` on any route is POSTed
-  server-side to `OAUTH_WEBHOOK_URL` with the `Secret` header, then stripped
-  from the URL. Unlike the old Docusaurus site, the secret never reaches the
-  client bundle. Env vars: `OAUTH_WEBHOOK_URL`, `OAUTH_WEBHOOK_SECRET`
-  (no `NEXT_PUBLIC` prefix — keep it that way).
 
 ## Env
 
@@ -73,11 +68,8 @@ changing them on Vercel requires a redeploy.
 ## Deploy (Vercel)
 
 1. Import the repo; set **Root Directory = `frontend/`** (this is a monorepo).
-2. Set env vars per environment:
-   - `NEXT_PUBLIC_TELEMETRY_URL` — omit until the backend is live, then
-     `https://telemetry.brendanwenzel.com/events`.
-   - `OAUTH_WEBHOOK_URL` / `OAUTH_WEBHOOK_SECRET` — the values previously in
-     `DOCUSAURUS_WEBHOOK_URL` / `DOCUSAURUS_WEBHOOK_SECRET`.
+2. Env: `NEXT_PUBLIC_TELEMETRY_URL` — omit until the backend is live, then
+   `https://telemetry.brendanwenzel.com/events`.
 3. Build command / output: defaults (`next build`).
 
 Old `/docs/...` URLs 301 to the new routes (`next.config.ts`).
@@ -88,5 +80,3 @@ Old `/docs/...` URLs 301 to the new routes (`next.config.ts`).
   (fiber 8 is React 18 only).
 - Tailwind v4: config lives in `app/globals.css` (`@theme`), no
   `tailwind.config.js`.
-- Next 16 renames `middleware.ts` → `proxy.ts`; on Next 15 the current
-  filename is correct.
