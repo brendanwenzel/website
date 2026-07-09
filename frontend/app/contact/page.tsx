@@ -18,10 +18,10 @@ export default function ContactPage() {
       />
       <div className="flex flex-col gap-4 sm:flex-row">
         <a
-          href="mailto:contact@brendanwenzel.net"
+          href="mailto:contact@brendanwenzel.com"
           className="rounded-md bg-emerald-500 px-6 py-3 text-center font-medium text-zinc-950 transition-colors hover:bg-emerald-400"
         >
-          contact@brendanwenzel.net
+          contact@brendanwenzel.com
         </a>
         <a
           href="https://www.linkedin.com/in/brendanwenzel/"

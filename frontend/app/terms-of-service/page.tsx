@@ -82,8 +82,8 @@ export default function TermsOfServicePage() {
 
         <h2>9. Governing Law</h2>
         <p>
-          These Terms shall be governed by and construed in accordance with the laws of [Your
-          Jurisdiction], without regard to its conflict of law provisions.
+          These Terms shall be governed by and construed in accordance with the laws of the
+          State of California, without regard to its conflict of law provisions.
         </p>
 
         <h2>10. Contact Information</h2>
