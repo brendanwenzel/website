@@ -1,5 +1,14 @@
 # brendanwenzel.com — live-telemetry personal site
 
+> **Status (2026-09-10):** the site is live on Vercel (personal team `brendanw`, project
+> `website`, deployed from `frontend/` with `vercel deploy --prod`) in **mock telemetry
+> mode** — `NEXT_PUBLIC_TELEMETRY_URL` is unset, so the ticker is labeled "simulated".
+> The Rust backend below is **archived, not deployed**: the three services it was written
+> to tail (`capi-bridge`, `spend-sheets`, `sample-automation`) no longer exist under those
+> names, so a launch would mean re-instrumenting current services plus a Caddy vhost and
+> systemd unit. Decision recorded in Asana card 1217928244939678. The design stays here
+> as reference; do not treat it as active work.
+
 Two deployables, one repo, one interface between them.
 
 ```

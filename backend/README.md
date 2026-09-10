@@ -1,5 +1,8 @@
 # telemetry-backend
 
+> **Archived 2026-09-10 — never deployed.** See the top-level README for why. The
+> frontend runs standalone in mock mode.
+
 Rust SSE server that tails the systemd journal for the production pipeline
 units, pushes each line through an **allowlist-only sanitizer**, and streams
 the survivors to browsers on `GET /events`. Runs on the Hetzner box behind
