@@ -14,13 +14,13 @@ import HeroVisual from './HeroVisual';
  */
 export function HeroSection() {
   return (
-    <section className="relative h-svh min-h-[560px] overflow-hidden bg-zinc-950">
+    <section className="relative min-h-[max(760px,100svh)] overflow-hidden bg-zinc-950">
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_65%_40%,_#122031_0%,_#09090b_70%)]" />
       <div className="absolute inset-0">
         <HeroVisual />
       </div>
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-zinc-950/85 via-zinc-950/35 to-transparent" />
-      <div className="relative z-10 mx-auto flex h-full max-w-6xl flex-col justify-center px-6">
+      <div className="pointer-events-none relative z-10 mx-auto flex min-h-[max(760px,100svh)] max-w-6xl flex-col justify-center px-6 pb-56 pt-48">
         <p className="font-mono text-sm text-emerald-400/80">production systems · live</p>
         <h1 className="mt-4 max-w-2xl text-4xl font-semibold tracking-tight text-zinc-50 sm:text-5xl">
           Marketing systems that run while you sleep.
@@ -31,7 +31,7 @@ export function HeroSection() {
         </p>
         <a
           href="/contact"
-          className="mt-8 w-fit rounded-md bg-emerald-500 px-6 py-3 font-medium text-zinc-950 transition-colors hover:bg-emerald-400"
+          className="pointer-events-auto mt-8 w-fit rounded-md bg-emerald-500 px-6 py-3 font-medium text-zinc-950 transition-colors hover:bg-emerald-400"
         >
           Work with me
         </a>

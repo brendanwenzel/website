@@ -49,7 +49,7 @@ export default function ServicesPage() {
           >
             <h2 className={`text-lg font-medium ${accent}`}>{title}</h2>
             <p className="mt-3 text-sm leading-relaxed text-zinc-400">{description}</p>
-            <span className="mt-4 inline-block font-mono text-xs text-zinc-500 transition-colors group-hover:text-zinc-300">
+            <span className="mt-4 inline-block font-mono text-xs text-zinc-400 transition-colors group-hover:text-zinc-300">
               Details →
             </span>
           </Link>

@@ -77,7 +77,7 @@ export function Nodes({ tier, glowRefs }: NodesProps) {
             />
           </sprite>
           <Html position={[0, -0.62, 0]} center wrapperClass="pointer-events-none select-none">
-            <span className="whitespace-nowrap font-mono text-[10px] tracking-wider text-zinc-500">
+            <span className="whitespace-nowrap font-mono text-[10px] tracking-wider text-zinc-400">
               {node.label}
             </span>
           </Html>

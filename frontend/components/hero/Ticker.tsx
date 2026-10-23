@@ -5,6 +5,7 @@ import { useEffect, useReducer } from 'react';
 import type { ConnectionStatus, Source, StampedEvent } from '@/lib/telemetry-types';
 
 interface TickerProps {
+  paused: boolean;
   events: StampedEvent[];
   status: ConnectionStatus;
   counts: Record<Source, number>;
@@ -50,17 +51,18 @@ function relativeTime(receivedAt: number): string {
  * would be screen-reader spam (per WAI guidance for stock-ticker UI). Only
  * the rarely-changing connection pill is a polite live region.
  */
-export function Ticker({ events, status, counts }: TickerProps) {
+export function Ticker({ paused, events, status, counts }: TickerProps) {
   const [, tick] = useReducer((n: number) => n + 1, 0);
   useEffect(() => {
+    if (paused) return;
     const id = setInterval(tick, 1000);
     return () => clearInterval(id);
-  }, []);
+  }, [paused]);
 
   const recent = events.slice(0, 3);
 
   return (
-    <div className="pointer-events-none absolute bottom-6 left-6 z-10 font-mono text-xs">
+    <div className="pointer-events-none absolute bottom-6 left-6 right-6 z-10 font-mono text-xs">
       <div
         role="status"
         aria-live="polite"
@@ -68,27 +70,27 @@ export function Ticker({ events, status, counts }: TickerProps) {
       >
         <span
           className={`h-1.5 w-1.5 rounded-full ${STATUS_DOT[status]} ${
-            status === 'live' || status === 'mock' ? 'animate-pulse' : ''
+            !paused && (status === 'live' || status === 'mock') ? 'animate-pulse' : ''
           }`}
         />
-        <span className="text-zinc-400">{STATUS_LABEL[status]}</span>
-        {(status === 'live' || status === 'mock') && (
-          <span className="text-zinc-600">
+        <span className="text-zinc-400">{paused ? 'Updates paused' : STATUS_LABEL[status]}</span>
+      </div>
+      {(status === 'live' || status === 'mock') && (
+        <p className="mt-2 text-zinc-400">
             {(Object.keys(counts) as Source[])
               .map((s) => `${COUNT_LABEL[s]} ${counts[s]}`)
               .join(' · ')}
-          </span>
-        )}
-      </div>
+        </p>
+      )}
 
       <div aria-live="off" className="mt-2 space-y-1">
         <h2 className="sr-only">Recent automation events</h2>
         {recent.map((event) => (
-          <p key={event.seq} className="text-zinc-500">
+          <p key={event.seq} className="text-zinc-400">
             <span className="text-zinc-300">{event.event_type}</span>
-            {' — '}
+            {' · '}
             {event.source}
-            {' — '}
+            {' · '}
             {relativeTime(event.receivedAt)}
           </p>
         ))}

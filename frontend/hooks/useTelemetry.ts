@@ -82,7 +82,7 @@ function reducer(state: TelemetryState, action: Action): TelemetryState {
 // NEXT_PUBLIC_* is inlined at build time; changing it requires a redeploy.
 const TELEMETRY_URL = process.env.NEXT_PUBLIC_TELEMETRY_URL;
 
-export function useTelemetry(): TelemetryState {
+export function useTelemetry(paused = false): TelemetryState {
   const [state, dispatch] = useReducer(
     reducer,
     TELEMETRY_URL ? 'connecting' : 'mock',
@@ -90,6 +90,7 @@ export function useTelemetry(): TelemetryState {
   );
 
   useEffect(() => {
+    if (paused) return;
     if (!TELEMETRY_URL) {
       dispatch({ type: 'mock-start' });
       // Returning the stop function makes this Strict Mode safe (React 19
@@ -105,7 +106,7 @@ export function useTelemetry(): TelemetryState {
     };
     es.onerror = () => dispatch({ type: 'error', readyState: es.readyState });
     return () => es.close();
-  }, []);
+  }, [paused]);
 
   return state;
 }

@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 
 import { useTelemetry } from '@/hooks/useTelemetry';
 import type { Tier } from '@/lib/perf-tier';
@@ -11,21 +11,32 @@ import { Ticker } from './Ticker';
 
 /**
  * Loaded via dynamic(ssr:false) — everything below here is browser-only.
- * One tree, one tier switch; useTelemetry runs in ALL tiers so the ticker is
- * always live even when the visual is the static SVG.
+ * One tree, one tier switch. Pausing disconnects telemetry and replaces the
+ * moving scene with a static diagram. Reduced-motion devices start paused.
  */
 export default function TelemetryHero({ tier }: { tier: Tier }) {
-  const telemetry = useTelemetry();
+  const [paused, setPaused] = useState(tier === 'static');
+  const telemetry = useTelemetry(paused);
   const containerRef = useRef<HTMLDivElement>(null);
 
   return (
     <div ref={containerRef} className="h-full w-full">
-      {tier === 'static' ? (
-        <StaticDiagram latest={telemetry.latest} />
-      ) : (
-        <Scene tier={tier} latest={telemetry.latest} containerRef={containerRef} />
-      )}
+      <div aria-hidden="true" className="h-full w-full">
+        {paused || tier === 'static' ? (
+          <StaticDiagram latest={paused ? null : telemetry.latest} />
+        ) : (
+          <Scene tier={tier} latest={telemetry.latest} containerRef={containerRef} />
+        )}
+      </div>
+      <button
+        type="button"
+        onClick={() => setPaused((value) => !value)}
+        className="absolute right-6 top-32 z-30 rounded-md border border-zinc-500 bg-zinc-950 px-4 py-3 text-sm text-zinc-100"
+      >
+        {paused ? 'Resume animation and updates' : 'Pause animation and updates'}
+      </button>
       <Ticker
+        paused={paused}
         events={telemetry.events}
         status={telemetry.status}
         counts={telemetry.countsBySource}
