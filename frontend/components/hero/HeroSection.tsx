@@ -20,7 +20,7 @@ export function HeroSection() {
         <HeroVisual />
       </div>
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-zinc-950/85 via-zinc-950/35 to-transparent" />
-      <div className="pointer-events-none relative z-10 mx-auto flex min-h-[max(760px,100svh)] max-w-6xl flex-col justify-center px-6 pb-56 pt-48">
+      <div className="pointer-events-none relative z-10 mx-auto flex min-h-[max(760px,100svh)] max-w-6xl flex-col justify-center px-6 pb-56 pt-32">
         <p className="font-mono text-sm text-emerald-400/80">production systems · live</p>
         <h1 className="mt-4 max-w-2xl text-4xl font-semibold tracking-tight text-zinc-50 sm:text-5xl">
           Marketing systems that run while you sleep.

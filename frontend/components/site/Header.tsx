@@ -8,7 +8,7 @@ const NAV = [
 
 export function Header() {
   return (
-    <header className="absolute inset-x-0 top-0 z-20">
+    <header className="relative z-20">
       <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-x-6 gap-y-3 px-6 py-5">
         <Link href="/" className="font-mono text-sm text-zinc-100 hover:text-white">
           brendanwenzel<span className="text-zinc-400">.com</span>

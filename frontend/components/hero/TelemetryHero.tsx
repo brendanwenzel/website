@@ -31,7 +31,7 @@ export default function TelemetryHero({ tier }: { tier: Tier }) {
       <button
         type="button"
         onClick={() => setPaused((value) => !value)}
-        className="absolute right-6 top-32 z-30 rounded-md border border-zinc-500 bg-zinc-950 px-4 py-3 text-sm text-zinc-100"
+        className="absolute right-6 top-6 z-30 rounded-md border border-zinc-500 bg-zinc-950 px-4 py-3 text-sm text-zinc-100"
       >
         {paused ? 'Resume animation and updates' : 'Pause animation and updates'}
       </button>
