@@ -1,7 +1,8 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 
-import { PageHeader } from '@/components/site/PageHeader';
+import { PageHeader } from '@/components/PageHeader';
+import { NODES } from '@/lib/nodes-config';
 import { Prose } from '@/components/site/Prose';
 
 export const metadata: Metadata = {
@@ -10,12 +11,18 @@ export const metadata: Metadata = {
     'Shopify, Rust backends, Solidity smart contracts, and marketing-tech integration — web solutions built to drive business results.',
 };
 
+// Engineering and marketing-tech integration: the spend-sheets pipeline (sky),
+// the same accent this service has on the home and services cards.
+const NODE = NODES[1];
+
 export default function WebDevelopmentPage() {
   return (
     <div className="mx-auto max-w-3xl px-6 pb-24 pt-32">
       <PageHeader
+        accent={NODE.color}
+        label={NODE.label}
         title="Web Development"
-        lead="I combine technical expertise with marketing knowledge to build web solutions that don't just look good but drive business results."
+        intro="I combine technical expertise with marketing knowledge to build web solutions that don't just look good but drive business results."
       />
       <Prose>
         <h2>Development Skills</h2>

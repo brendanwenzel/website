@@ -1,7 +1,8 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 
-import { PageHeader } from '@/components/site/PageHeader';
+import { PageHeader } from '@/components/PageHeader';
+import { HUB_COLOR, NODES } from '@/lib/nodes-config';
 
 export const metadata: Metadata = {
   title: 'Contact',
@@ -13,8 +14,11 @@ export default function ContactPage() {
   return (
     <div className="mx-auto max-w-3xl px-6 pb-24 pt-32">
       <PageHeader
+        accent={HUB_COLOR}
+        label="hub"
+        pulseColors={[NODES[0].color, NODES[1].color, NODES[2].color]}
         title="Contact"
-        lead="The fastest way to reach me is email. Tell me what you're working on — campaigns, stack, or both — and I'll get back to you."
+        intro="The fastest way to reach me is email. Tell me what you're working on — campaigns, stack, or both — and I'll get back to you."
       />
       <div className="flex flex-col gap-4 sm:flex-row">
         <a

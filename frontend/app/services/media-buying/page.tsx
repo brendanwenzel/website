@@ -1,7 +1,8 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 
-import { PageHeader } from '@/components/site/PageHeader';
+import { PageHeader } from '@/components/PageHeader';
+import { NODES } from '@/lib/nodes-config';
 import { Prose } from '@/components/site/Prose';
 
 export const metadata: Metadata = {
@@ -10,12 +11,18 @@ export const metadata: Metadata = {
     'Systematic, data-driven media buying across TikTok, Amazon, YouTube, Meta, and Google — millions in managed spend with proven ROAS.',
 };
 
+// Media buying runs on conversion tracking: the capi-bridge system (emerald),
+// the same accent this service has on the home and services cards.
+const NODE = NODES[0];
+
 export default function MediaBuyingPage() {
   return (
     <div className="mx-auto max-w-3xl px-6 pb-24 pt-32">
       <PageHeader
+        accent={NODE.color}
+        label={NODE.label}
         title="Media Buying"
-        lead="As a seasoned media buying professional with experience across multiple platforms, I help brands optimize their ad spend and maximize ROI through strategic campaign management."
+        intro="As a seasoned media buying professional with experience across multiple platforms, I help brands optimize their ad spend and maximize ROI through strategic campaign management."
       />
       <Prose>
         <h2>Platforms I Specialize In</h2>
