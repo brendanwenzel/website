@@ -43,11 +43,13 @@ function relativeTime(receivedAt: number): string {
 }
 
 /**
- * The legibility layer: proves the graphic is live production traffic, not a
- * loop. Relative times re-render from one 1s interval scoped to this small
- * component.
+ * The legibility layer: says in words what the graphic is showing. The
+ * status pill is the honest part: "simulated" in mock mode (the default,
+ * random events from lib/mock-telemetry.ts), "live" only when a real
+ * telemetry URL is connected. Relative times re-render from one 1s interval
+ * scoped to this small component.
  *
- * A11y: the event list is aria-live="off" — one update every few seconds
+ * A11y: the event list is aria-live="off": one update every few seconds
  * would be screen-reader spam (per WAI guidance for stock-ticker UI). Only
  * the rarely-changing connection pill is a polite live region.
  */
@@ -84,7 +86,9 @@ export function Ticker({ paused, events, status, counts }: TickerProps) {
       )}
 
       <div aria-live="off" className="mt-2 space-y-1">
-        <h2 className="sr-only">Recent automation events</h2>
+        <h2 className="sr-only">
+          {status === 'mock' ? 'Recent simulated automation events' : 'Recent automation events'}
+        </h2>
         {recent.map((event) => (
           <p key={event.seq} className="text-zinc-400">
             <span className="text-zinc-300">{event.event_type}</span>

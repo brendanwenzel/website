@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 import { detectTier, type Tier } from '@/lib/perf-tier';
 
 // Next 15: dynamic(..., { ssr: false }) is only legal inside a client
-// component — this shim exists so HeroSection can stay a server component.
+// component, so this shim exists to keep HeroSection a server component.
 // three.js + r3f land in their own chunk, fetched after hydration; the
 // gradient backdrop in HeroSection is the placeholder, so loading renders
 // nothing.

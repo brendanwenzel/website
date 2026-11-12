@@ -1,25 +1,52 @@
 import Link from 'next/link';
 
-import { HeroSection } from '@/components/hero/HeroSection';
+import { ExpertiseCards, type ExpertiseCard } from '@/components/hero/ExpertiseCards';
+import { HeroBackdrop, HeroSection } from '@/components/hero/HeroSection';
 
-const EXPERTISE = [
+// Each card is paired with one node of the hero diagram (index and label
+// from NODES in lib/nodes-config.ts). On the full tier the scroll camera
+// features that node while its card is active. Accent classes are the
+// Tailwind tokens from globals.css and are spelled out so the scanner
+// generates them.
+const EXPERTISE: ExpertiseCard[] = [
   {
+    // CAPI Bridge sends purchase events back to the ad platforms.
+    node: 0,
+    nodeLabel: 'capi-bridge',
     title: 'Media Buying & Social Commerce',
-    accent: 'text-emerald-400',
+    titleClass: 'text-emerald-400',
+    activeBorderClass: 'data-[active=true]:border-accent-capi',
+    activeLabelClass: 'group-data-[active=true]:text-accent-capi',
+    activeDotClass: 'group-data-[active=true]:bg-accent-capi',
+    revealClass: 'reveal reveal-1',
     description:
       "Expert in leveraging platforms like TikTok, Amazon, and YouTube to drive sales. With over 16 years of experience, I've managed millions in ad spend across multiple platforms with proven ROI.",
     href: '/services/media-buying',
   },
   {
+    // Spend to Sheets is custom reporting plumbing.
+    node: 1,
+    nodeLabel: 'spend-sheets',
     title: 'Technical Marketing & Development',
-    accent: 'text-sky-400',
+    titleClass: 'text-sky-400',
+    activeBorderClass: 'data-[active=true]:border-accent-spend',
+    activeLabelClass: 'group-data-[active=true]:text-accent-spend',
+    activeDotClass: 'group-data-[active=true]:bg-accent-spend',
+    revealClass: 'reveal reveal-2',
     description:
       'Skilled in Rust, Solidity, and web development. I bridge the gap between marketing and technology, creating custom solutions that drive results for e-commerce and blockchain projects.',
     href: '/services/web-development',
   },
   {
+    // Sample Automation gets product to creators, which is how a shop grows.
+    node: 2,
+    nodeLabel: 'sample-automation',
     title: 'E-Commerce & Growth Strategy',
-    accent: 'text-amber-400',
+    titleClass: 'text-amber-400',
+    activeBorderClass: 'data-[active=true]:border-accent-sample',
+    activeLabelClass: 'group-data-[active=true]:text-accent-sample',
+    activeDotClass: 'group-data-[active=true]:bg-accent-sample',
+    revealClass: 'reveal reveal-3',
     description:
       "Shopify expert with extensive experience in optimizing online stores. I've helped clients elevate monthly revenue from $58k to $256k through strategic digital marketing initiatives.",
     href: '/services/marketing-consulting',
@@ -48,30 +75,29 @@ export default function HomePage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
       />
-      <HeroSection />
+      {/* Top of the page: the node graph is the backdrop for the hero AND
+          Expertise. overflow-clip (not hidden) clips the oversized backdrop
+          without creating a scroll container, which would break its sticky
+          canvas. isolate keeps the backdrop's layers under the header. */}
+      <div className="relative isolate overflow-clip">
+        <HeroBackdrop />
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-b from-transparent to-zinc-950"
+        />
+        <HeroSection />
 
-      <section className="mx-auto max-w-6xl px-6 py-24">
-        <h2 className="text-3xl font-semibold tracking-tight text-zinc-50">My Expertise</h2>
-        <div className="mt-10 grid gap-8 md:grid-cols-3">
-          {EXPERTISE.map(({ title, accent, description, href }) => (
-            <Link
-              key={href}
-              href={href}
-              className="group rounded-lg border border-zinc-800 bg-zinc-900/40 p-6 transition-colors hover:border-zinc-700 hover:bg-zinc-900/70"
-            >
-              <h3 className={`text-lg font-medium ${accent}`}>{title}</h3>
-              <p className="mt-3 text-sm leading-relaxed text-zinc-400">{description}</p>
-              <span className="mt-4 inline-block font-mono text-xs text-zinc-400 transition-colors group-hover:text-zinc-300">
-                Learn more →
-              </span>
-            </Link>
-          ))}
-        </div>
-      </section>
+        <section data-journey-section="" className="relative mx-auto max-w-6xl px-6 py-24">
+          <h2 className="w-fit text-3xl font-semibold tracking-tight text-zinc-50">
+            My Expertise
+          </h2>
+          <ExpertiseCards cards={EXPERTISE} />
+        </section>
+      </div>
 
       <section className="border-t border-zinc-900 bg-zinc-950">
         <div className="mx-auto max-w-6xl px-6 py-24">
-          <div className="max-w-3xl">
+          <div className="reveal max-w-3xl">
             <h2 className="text-3xl font-semibold tracking-tight text-zinc-50">About</h2>
             <p className="mt-6 leading-relaxed text-zinc-400">
               I&apos;m a seasoned digital marketing professional specializing in social commerce,
@@ -82,15 +108,16 @@ export default function HomePage() {
             <p className="mt-4 leading-relaxed text-zinc-400">
               My core services include consulting, media buying, technical work, growth
               strategy, Shopify optimization, and creative. With over 16 years of experience,
-              I&apos;ve generated millions in revenue for my clients — and the animation above
-              isn&apos;t a loop: it&apos;s live telemetry from the production systems I run.
+              I&apos;ve generated millions in revenue for my clients. The diagram at the top
+              of this page shows three systems I run, and the events moving through it are a
+              simulation of their activity.
             </p>
           </div>
         </div>
       </section>
 
       <section className="border-t border-zinc-900">
-        <div className="mx-auto flex max-w-6xl flex-col items-start gap-6 px-6 py-20 sm:flex-row sm:items-center sm:justify-between">
+        <div className="reveal mx-auto flex max-w-6xl flex-col items-start gap-6 px-6 py-20 sm:flex-row sm:items-center sm:justify-between">
           <div>
             <h2 className="text-2xl font-semibold tracking-tight text-zinc-50">
               Ready to grow?

@@ -13,21 +13,36 @@ interface NodesProps {
   tier: 'full' | 'lite';
   /** Filled here, flash-animated by Pulses. Index matches NODES/SOURCES. */
   glowRefs: MutableRefObject<(THREE.Sprite | null)[]>;
+  /** 0..1 per node: how strongly the camera journey is featuring it. */
+  emphasis: MutableRefObject<number[]>;
 }
 
 export const GLOW_BASE_OPACITY = 0.35;
 export const GLOW_BASE_SCALE = 0.9;
 
-export function Nodes({ tier, glowRefs }: NodesProps) {
+export const WIRE_BASE_OPACITY = 0.7;
+
+export function Nodes({ tier, glowRefs, emphasis }: NodesProps) {
   const groupRefs = useRef<(THREE.Group | null)[]>([]);
+  const wireRefs = useRef<(THREE.MeshBasicMaterial | null)[]>([]);
+  const labelRefs = useRef<(HTMLSpanElement | null)[]>([]);
   const detail = TIER_SETTINGS[tier].nodeDetail;
   const glow = getGlowTexture();
 
-  // Gentle breathing so the scene is alive even with zero traffic.
+  // Gentle breathing so the scene is alive even with zero traffic. The
+  // featured node (camera journey) also grows a little and its wireframe
+  // goes to full opacity.
   useFrame(({ clock }) => {
     const t = clock.elapsedTime;
     groupRefs.current.forEach((group, i) => {
-      group?.scale.setScalar(1 + 0.03 * Math.sin(t * 0.8 + i * 2.1));
+      const e = emphasis.current[i] ?? 0;
+      group?.scale.setScalar((1 + 0.03 * Math.sin(t * 0.8 + i * 2.1)) * (1 + 0.14 * e));
+      const wire = wireRefs.current[i];
+      if (wire) wire.opacity = WIRE_BASE_OPACITY + (1 - WIRE_BASE_OPACITY) * e;
+      // The featured node's label would ghost through its card; the card
+      // carries the same label, so fade this one out while featured.
+      const label = labelRefs.current[i];
+      if (label) label.style.opacity = String(1 - e);
     });
   });
 
@@ -55,7 +70,15 @@ export function Nodes({ tier, glowRefs }: NodesProps) {
         >
           <mesh>
             <icosahedronGeometry args={[0.34, detail]} />
-            <meshBasicMaterial color={node.color} wireframe transparent opacity={0.7} />
+            <meshBasicMaterial
+              ref={(el) => {
+                wireRefs.current[i] = el;
+              }}
+              color={node.color}
+              wireframe
+              transparent
+              opacity={WIRE_BASE_OPACITY}
+            />
           </mesh>
           <mesh>
             <sphereGeometry args={[0.2, 16, 16]} />
@@ -77,7 +100,12 @@ export function Nodes({ tier, glowRefs }: NodesProps) {
             />
           </sprite>
           <Html position={[0, -0.62, 0]} center wrapperClass="pointer-events-none select-none">
-            <span className="whitespace-nowrap font-mono text-[10px] tracking-wider text-zinc-400">
+            <span
+              ref={(el) => {
+                labelRefs.current[i] = el;
+              }}
+              className="whitespace-nowrap font-mono text-[10px] tracking-wider text-zinc-400"
+            >
               {node.label}
             </span>
           </Html>
