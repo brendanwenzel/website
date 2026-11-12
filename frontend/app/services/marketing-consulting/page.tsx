@@ -1,7 +1,8 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 
-import { PageHeader } from '@/components/site/PageHeader';
+import { PageHeader } from '@/components/PageHeader';
+import { NODES } from '@/lib/nodes-config';
 import { Prose } from '@/components/site/Prose';
 
 export const metadata: Metadata = {
@@ -10,12 +11,18 @@ export const metadata: Metadata = {
     'Strategic marketing consulting from a 16+ year practitioner: strategic planning, campaign analysis, performance optimization, and growth strategy.',
 };
 
+// Growth strategy maps to the sample-automation system (amber), the same
+// accent this service has on the home and services cards.
+const NODE = NODES[2];
+
 export default function MarketingConsultingPage() {
   return (
     <div className="mx-auto max-w-3xl px-6 pb-24 pt-32">
       <PageHeader
+        accent={NODE.color}
+        label={NODE.label}
         title="Marketing Consulting"
-        lead="As a seasoned marketing consultant with over 16 years of experience, I provide strategic guidance to help businesses grow their online presence and increase revenue."
+        intro="As a seasoned marketing consultant with over 16 years of experience, I provide strategic guidance to help businesses grow their online presence and increase revenue."
       />
       <Prose>
         <h2>My Approach</h2>
