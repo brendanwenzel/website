@@ -37,7 +37,7 @@ export default function ContactPage() {
           <h2 className="font-medium text-zinc-200">Media buying</h2>
           <p className="mt-2">
             Scaling paid acquisition on TikTok, Amazon, YouTube, Meta, and Google.{' '}
-            <Link href="/services/media-buying" className="text-emerald-400 hover:text-emerald-300">
+            <Link href="/services/media-buying" className="text-emerald-400 underline underline-offset-2 hover:text-emerald-300">
               Details
             </Link>
           </p>
@@ -48,7 +48,7 @@ export default function ContactPage() {
             Strategy, campaign analysis, and growth roadmaps.{' '}
             <Link
               href="/services/marketing-consulting"
-              className="text-emerald-400 hover:text-emerald-300"
+              className="text-emerald-400 underline underline-offset-2 hover:text-emerald-300"
             >
               Details
             </Link>
@@ -60,7 +60,7 @@ export default function ContactPage() {
             Shopify, Rust backends, and marketing-tech integration.{' '}
             <Link
               href="/services/web-development"
-              className="text-emerald-400 hover:text-emerald-300"
+              className="text-emerald-400 underline underline-offset-2 hover:text-emerald-300"
             >
               Details
             </Link>
