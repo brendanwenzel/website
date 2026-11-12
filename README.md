@@ -1,4 +1,4 @@
-# brendanwenzel.com — live-telemetry personal site
+# brendanwenzel.com: personal site with a simulated telemetry hero
 
 > **Status (2026-09-10):** the site is live on Vercel (personal team `brendanw`, project
 > `website`, deployed from `frontend/` with `vercel deploy --prod`) in **mock telemetry
