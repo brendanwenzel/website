@@ -44,3 +44,30 @@ nav a { display: inline-flex; min-height: 24px; align-items: center; }
     scroll-behavior: auto !important;
   }
 }
+
+/* ==========================================================================
+   Home page scroll reveals (branch anim/home-journey). One block, keep it
+   last. Pure CSS scroll-driven animation, so the About block and CTA strip
+   stay server components. Browsers without animation-timeline skip the
+   whole block and simply show the content. The reduced-motion rule above
+   also wins (animation: none !important); the media query here just makes
+   that explicit.
+   ========================================================================== */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    @keyframes reveal-rise {
+      from { opacity: 0; transform: translateY(1.25rem); }
+      to   { opacity: 1; transform: none; }
+    }
+    .reveal {
+      animation: reveal-rise linear both;
+      animation-timeline: view();
+      /* Entry ranges only: finished as soon as the element is fully in
+         view, so nothing near the page bottom can be left half faded. */
+      animation-range: entry 0% entry 70%;
+    }
+    /* The three Expertise cards enter together, so stagger by range. */
+    .reveal-2 { animation-range: entry 15% entry 85%; }
+    .reveal-3 { animation-range: entry 30% entry 100%; }
+  }
+}

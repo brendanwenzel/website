@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, useRef } from 'react';
+import { useMemo, useRef, type MutableRefObject } from 'react';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 
@@ -14,11 +14,18 @@ import { getGlowTexture } from './glow-texture';
  * rewritten into the buffer attribute every frame — trivial CPU work at these
  * counts (<= 150 curve lookups).
  */
-export function AmbientParticles({ count }: { count: number }) {
+interface AmbientParticlesProps {
+  count: number;
+  /** 0..1 per node: flow on the featured node's curve runs a little faster. */
+  emphasis: MutableRefObject<number[]>;
+}
+
+export function AmbientParticles({ count, emphasis }: AmbientParticlesProps) {
   const positionAttr = useRef<THREE.BufferAttribute>(null);
   // Own accumulated time (not the global clock) so pause/resume via
   // frameloop='never' can't cause a jump; dt is clamped for the same reason.
-  const time = useRef(0);
+  // One clock per curve, so speeding one curve up never makes particles jump.
+  const time = useRef<number[]>(CURVES.map(() => 0));
 
   const { particles, positions, colors } = useMemo(() => {
     const particles = Array.from({ length: count }, () => ({
@@ -41,13 +48,16 @@ export function AmbientParticles({ count }: { count: number }) {
   const v = useMemo(() => new THREE.Vector3(), []);
 
   useFrame((_, delta) => {
-    time.current += Math.min(delta, 0.05);
+    const dt = Math.min(delta, 0.05);
+    for (let c = 0; c < time.current.length; c++) {
+      time.current[c] += dt * (1 + 0.6 * (emphasis.current[c] ?? 0));
+    }
     const attr = positionAttr.current;
     if (!attr) return;
     const array = attr.array as Float32Array;
     for (let i = 0; i < particles.length; i++) {
       const p = particles[i];
-      CURVES[p.curve].getPoint((p.phase + time.current * p.speed) % 1, v);
+      CURVES[p.curve].getPoint((p.phase + time.current[p.curve] * p.speed) % 1, v);
       array[i * 3] = v.x;
       array[i * 3 + 1] = v.y;
       array[i * 3 + 2] = v.z;

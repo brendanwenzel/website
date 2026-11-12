@@ -16,6 +16,8 @@ interface PulsesProps {
   latest: StampedEvent | null;
   /** Node glow sprites from Nodes — flashed when their source fires. */
   glowRefs: MutableRefObject<(THREE.Sprite | null)[]>;
+  /** 0..1 per node: the featured node glows brighter and pulses faster. */
+  emphasis: MutableRefObject<number[]>;
 }
 
 interface PulseSlot {
@@ -28,12 +30,13 @@ const TRAVEL_SECONDS = 1.4;
 const easeInOut = (t: number) => t * t * (3 - 2 * t);
 
 /**
- * Event-driven comets — the "this is live" moment. A fixed pool of sprites
+ * Event-driven comets: one per telemetry event (simulated events in mock
+ * mode, real ones when a telemetry URL is set). A fixed pool of sprites
  * (no allocation per event); a new event claims a free slot (or steals the
  * oldest) and travels its source's curve node -> hub while the source node's
  * glow flashes and decays.
  */
-export function Pulses({ tier, latest, glowRefs }: PulsesProps) {
+export function Pulses({ tier, latest, glowRefs, emphasis }: PulsesProps) {
   const poolSize = TIER_SETTINGS[tier].pulsePool;
   const spriteRefs = useRef<(THREE.Sprite | null)[]>([]);
   const slots = useRef<PulseSlot[]>(
@@ -73,7 +76,7 @@ export function Pulses({ tier, latest, glowRefs }: PulsesProps) {
         sprite.visible = false;
         return;
       }
-      slot.t += dt / TRAVEL_SECONDS;
+      slot.t += (dt / TRAVEL_SECONDS) * (1 + 0.35 * (emphasis.current[slot.curve] ?? 0));
       if (slot.t >= 1) {
         slot.active = false;
         sprite.visible = false;
@@ -86,15 +89,19 @@ export function Pulses({ tier, latest, glowRefs }: PulsesProps) {
       sprite.visible = true;
     });
 
-    // Node glow flash decay.
+    // Node glow: event flash (decaying) on top of the journey emphasis.
+    // This is the only writer of the glow sprites.
     flashes.current.forEach((f, i) => {
-      if (f <= 0.001) return;
-      const next = f * Math.exp(-2.5 * dt);
+      const next = f <= 0.001 ? 0 : f * Math.exp(-2.5 * dt);
       flashes.current[i] = next;
+      const e = emphasis.current[i] ?? 0;
       const glow = glowRefs.current[i];
       if (glow) {
-        (glow.material as THREE.SpriteMaterial).opacity = GLOW_BASE_OPACITY + 0.5 * next;
-        glow.scale.setScalar(GLOW_BASE_SCALE * (1 + 0.6 * next));
+        (glow.material as THREE.SpriteMaterial).opacity = Math.min(
+          1,
+          GLOW_BASE_OPACITY + 0.25 * e + 0.5 * next,
+        );
+        glow.scale.setScalar(GLOW_BASE_SCALE * (1 + 0.3 * e) * (1 + 0.6 * next));
       }
     });
   });

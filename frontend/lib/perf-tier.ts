@@ -25,3 +25,10 @@ export function detectTier(): Tier {
 
   return 'full';
 }
+
+/**
+ * The scroll camera journey runs only on the 'full' tier AND at widths where
+ * the Expertise cards sit side by side (Tailwind `md`). Narrow windows and
+ * the 'lite' tier keep the plain hero: the canvas scrolls away with it.
+ */
+export const JOURNEY_MIN_WIDTH_QUERY = '(min-width: 768px)';
