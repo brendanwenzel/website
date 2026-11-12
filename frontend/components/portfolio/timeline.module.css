@@ -1,0 +1,275 @@
+/* Portfolio timeline. Everything here renders in its final state by default;
+   motion is layered on inside @supports so browsers without scroll-driven
+   animation, visitors with JS off and reduced-motion visitors (globals.css
+   turns animation off) all get the complete, static page. */
+
+.emerald { --accent: #34d399; }
+.sky { --accent: #38bdf8; }
+.amber { --accent: #fbbf24; }
+.grey { --accent: #a1a1aa; }
+
+/* ---------- spine ---------- */
+
+/* Each station carries the segment that runs from its node to the next one,
+   so the spine ends at the last node and can always finish drawing. */
+.rail,
+.railFill {
+  position: absolute;
+  top: 0.65rem;
+  bottom: -0.65rem;
+  left: 6.5px;
+  width: 2px;
+}
+
+.rail {
+  background: #27272a;
+}
+
+.railFill {
+  background: var(--accent);
+  opacity: 0.75;
+}
+
+.station:last-child .rail,
+.station:last-child .railFill {
+  display: none;
+}
+
+.station {
+  position: relative;
+  padding-left: 2.25rem;
+}
+
+.node {
+  position: absolute;
+  left: 0;
+  top: 0.2rem;
+  width: 15px;
+  height: 15px;
+  border-radius: 9999px;
+  border: 2px solid var(--accent);
+  background: var(--accent);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 18%, transparent);
+}
+
+.eyebrow {
+  color: var(--accent);
+}
+
+.marker {
+  background: var(--accent);
+}
+
+@media (min-width: 640px) {
+  .station {
+    padding-left: 3.5rem;
+  }
+}
+
+/* ---------- charts ---------- */
+
+/* Lets the tag, a sibling of the plot, follow the plot's view timeline. */
+.figure {
+  timeline-scope: --plot;
+}
+
+.tag {
+  color: var(--accent);
+  border-color: color-mix(in srgb, var(--accent) 45%, transparent);
+  background: color-mix(in srgb, var(--accent) 10%, transparent);
+}
+
+.plot {
+  position: relative;
+  height: 11rem;
+  margin: 3.25rem 6px 0;
+  border-bottom: 1px solid #3f3f46;
+  view-timeline-name: --plot;
+  view-timeline-axis: block;
+}
+
+.line {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.stroke {
+  stroke: var(--accent);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+}
+
+.area {
+  fill: var(--accent);
+  opacity: 0.09;
+}
+
+.dot {
+  position: absolute;
+  width: 11px;
+  height: 11px;
+  border-radius: 9999px;
+  background: #09090b;
+  border: 2px solid var(--accent);
+}
+
+.dotStart {
+  left: 0;
+  bottom: var(--start);
+  translate: -50% 50%;
+}
+
+.dotEnd {
+  right: 0;
+  top: 0;
+  translate: 50% -50%;
+  background: var(--accent);
+  box-shadow: 0 0 0 5px color-mix(in srgb, var(--accent) 20%, transparent);
+}
+
+.label {
+  position: absolute;
+  white-space: nowrap;
+  line-height: 1;
+}
+
+.labelStart {
+  left: 0;
+  top: calc(100% - var(--start) + 0.85rem);
+}
+
+.labelEnd {
+  right: 0;
+  bottom: calc(100% + 1rem);
+  color: var(--accent);
+}
+
+.bracket {
+  flex: 1;
+  height: 7px;
+  border-left: 1px solid #52525b;
+  border-bottom: 1px solid #52525b;
+}
+
+.bracketEnd {
+  border-left: 0;
+  border-right: 1px solid #52525b;
+}
+
+@media (min-width: 640px) {
+  .plot {
+    height: 14rem;
+  }
+}
+
+/* ---------- motion ---------- */
+
+@keyframes reveal {
+  from {
+    opacity: 0;
+    transform: translateY(1.5rem);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes draw-down {
+  from {
+    clip-path: inset(0 0 100% 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+@keyframes node-on {
+  from {
+    background: #09090b;
+    border-color: #3f3f46;
+    box-shadow: 0 0 0 0 transparent;
+  }
+}
+
+@keyframes wipe {
+  from {
+    clip-path: inset(-12px 100% -12px -12px);
+  }
+  to {
+    clip-path: inset(-12px -12px -12px -12px);
+  }
+}
+
+@keyframes pop {
+  from {
+    opacity: 0;
+    scale: 0.5;
+  }
+  to {
+    opacity: 1;
+    scale: 1;
+  }
+}
+
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@supports (animation-timeline: view()) {
+  /* The drawn tip of the spine stays 60% of the way down the viewport, and
+     each segment hands over to the next at the node. */
+  .railFill {
+    animation: draw-down linear both;
+    animation-timeline: view(block 0% 40%);
+    animation-range: entry-crossing 0% entry-crossing 100%;
+  }
+
+  /* A station's node lights as the tip reaches it. */
+  .node {
+    animation: node-on linear both;
+    animation-timeline: view();
+    animation-range: cover 34% cover 41%;
+  }
+
+  .reveal {
+    animation: reveal linear both;
+    animation-timeline: view();
+    animation-range: entry 0% cover 28%;
+  }
+
+  /* Last blocks on the page: finish as soon as they are fully in view, since
+     there may be no scroll left below them. */
+  .revealEarly {
+    animation: reveal linear both;
+    animation-timeline: view();
+    animation-range: entry 0% entry 100%;
+  }
+
+  .line {
+    animation: wipe linear both;
+    animation-timeline: --plot;
+    animation-range: entry 70% cover 50%;
+  }
+
+  .dotEnd {
+    animation: pop linear both;
+    animation-timeline: --plot;
+    animation-range: cover 47% cover 54%;
+  }
+
+  .labelEnd,
+  .tag {
+    animation: fade linear both;
+    animation-timeline: --plot;
+    animation-range: cover 47% cover 56%;
+  }
+}
