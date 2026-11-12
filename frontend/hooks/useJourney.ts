@@ -26,9 +26,13 @@ export interface JourneyState {
   node: number;
   /** 0 = hero camera, 1 = fully on the featured node. Scroll driven. */
   blend: number;
-  /** Where the featured node should sit, in px from the canvas top-left. */
+  /**
+   * Screen anchor for the featured node, in px from the canvas top-left:
+   * its centre x, and the top edge of the card row. CameraRig parks the node
+   * just above that edge, so it never covers the card's label or title.
+   */
   anchorX: number;
-  anchorY: number;
+  rowTop: number;
 }
 
 export const journeyState: JourneyState = {
@@ -37,7 +41,7 @@ export const journeyState: JourneyState = {
   node: 0,
   blend: 0,
   anchorX: 0,
-  anchorY: 0,
+  rowTop: 0,
 };
 
 const listeners = new Set<() => void>();
@@ -81,13 +85,15 @@ const clamp01 = (n: number) => Math.min(1, Math.max(0, n));
 const smooth = (n: number) => n * n * (3 - 2 * n);
 
 // All thresholds are fractions of the viewport height.
-const BLEND_START = 0.95; // card row top here: camera starts leaving the hero pose
-const JOURNEY_START = 0.78; // card row top here: first card becomes active
-const JOURNEY_END = 0.08; // card row top here: last card has had its turn
+const BLEND_START = 1.15; // card row top here: camera starts leaving the hero pose
+const JOURNEY_START = 0.86; // card row top here: first card becomes active
+const JOURNEY_END = 0.24; // card row top here: last card has had its turn (the
+// node above the row still fits on screen; after this it scrolls off the top
+// with the row, and the fade below takes over)
 const FADE_START = 0.45; // section bottom here: canvas starts fading
 const FADE_END = 0.2; // section bottom here: canvas is gone, rendering stops
-const ANCHOR_INSET_X = 80; // px in from the card's right edge
-const ANCHOR_LIFT_Y = 44; // px above the card's top edge
+const ANCHOR_INSET_X = 44; // px in from the card's right edge, which keeps
+// the first card's node and its glow clear of the section heading
 
 /**
  * Maps scroll position to journey state while `enabled`. Returns true once
@@ -128,8 +134,7 @@ export function useJourneyDriver(
         clamp01((BLEND_START * vh - rowTop) / ((BLEND_START - JOURNEY_START) * vh)),
       );
       journeyState.anchorX = rect.right - ANCHOR_INSET_X - layerRect.left;
-      journeyState.anchorY =
-        Math.min(0.82 * vh, Math.max(0.16 * vh, rect.top - ANCHOR_LIFT_Y)) - layerRect.top;
+      journeyState.rowTop = rect.top - layerRect.top;
 
       setActive(step < 0 || fade <= 0 ? -1 : nodeOf(card));
       layer.style.opacity = String(fade);

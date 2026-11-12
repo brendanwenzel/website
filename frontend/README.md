@@ -64,6 +64,11 @@ anything off-contract, so garbage on the stream can't break the hero.
   over the gradient. Zero CLS: the backdrop and canvas are absolutely
   positioned (or sticky inside an absolutely positioned box) and never size
   anything in the flow.
+- **Hero framing**: on the full tier `CameraRig` frames the resting graph
+  in the space to the right of the hero copy column, so no node or label
+  sits behind the headline. The column constants at the top of
+  `CameraRig.tsx` mirror `HeroSection`; change them together. Windows too
+  narrow for that keep the original centred pose, as does the lite tier.
 - **Backdrop layer**: `app/page.tsx` wraps the hero and the Expertise section
   in one `relative isolate overflow-clip` box. `HeroBackdrop` is its first
   child and holds the gradient and the visual. It is `pointer-events-none`
@@ -75,7 +80,7 @@ anything off-contract, so garbage on the stream can't break the hero.
   the `full` tier at `md` widths and up, the canvas is sticky and stays
   behind Expertise. `hooks/useJourney.ts` maps scroll position to an active
   card; `components/hero/CameraRig.tsx` pans and dollies the camera (damped)
-  so that card's node sits just above it, the node brightens, and flow on
+  so that card's node sits above the card row, clear of the card, the node brightens, and flow on
   its curve speeds up a little. Card to node mapping lives in `EXPERTISE` in
   `app/page.tsx`: Media Buying & Social Commerce is `capi-bridge`, Technical
   Marketing & Development is `spend-sheets`, E-Commerce & Growth Strategy is

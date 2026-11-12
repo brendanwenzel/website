@@ -7,6 +7,7 @@ import * as THREE from 'three';
 
 import { CURVES, HUB_COLOR, HUB_POSITION, NODES, TIER_SETTINGS } from '@/lib/nodes-config';
 
+import { FEATURED_SCALE } from './CameraRig';
 import { getGlowTexture } from './glow-texture';
 
 interface NodesProps {
@@ -36,7 +37,7 @@ export function Nodes({ tier, glowRefs, emphasis }: NodesProps) {
     const t = clock.elapsedTime;
     groupRefs.current.forEach((group, i) => {
       const e = emphasis.current[i] ?? 0;
-      group?.scale.setScalar((1 + 0.03 * Math.sin(t * 0.8 + i * 2.1)) * (1 + 0.14 * e));
+      group?.scale.setScalar((1 + 0.03 * Math.sin(t * 0.8 + i * 2.1)) * (1 + (FEATURED_SCALE - 1) * e));
       const wire = wireRefs.current[i];
       if (wire) wire.opacity = WIRE_BASE_OPACITY + (1 - WIRE_BASE_OPACITY) * e;
       // The featured node's label would ghost through its card; the card

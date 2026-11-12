@@ -58,8 +58,9 @@ function SceneContent({ tier, latest }: { tier: 'full' | 'lite'; latest: Stamped
   const emphasis = useRef<number[]>(NODES.map(() => 0));
   const pointer = useRef({ x: 0, y: 0 });
   const settings = TIER_SETTINGS[tier];
-  // Offset right on desktop so the headline column stays clean; centered on
-  // the lite (touch) tier where the text stacks above the diagram anyway.
+  // Offset right on the full tier (the original centred pose leans on it;
+  // CameraRig's fitted hero pose accounts for it); centered on the lite
+  // (touch) tier where the text stacks above the diagram anyway.
   const groupX = tier === 'full' ? 0.9 : 0;
 
   // The canvas layer is pointer-events-none (it sits behind page content),
@@ -85,7 +86,7 @@ function SceneContent({ tier, latest }: { tier: 'full' | 'lite'; latest: Stamped
 
   return (
     <>
-      <CameraRig groupX={groupX} emphasis={emphasis} />
+      <CameraRig groupX={groupX} fitHero={tier === 'full'} emphasis={emphasis} />
       <group ref={groupRef} position={[groupX, 0, 0]}>
         <Nodes tier={tier} glowRefs={glowRefs} emphasis={emphasis} />
         <AmbientParticles count={settings.ambientCount} emphasis={emphasis} />
