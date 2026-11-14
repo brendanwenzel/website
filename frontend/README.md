@@ -104,10 +104,11 @@ anything off-contract, so garbage on the stream can't break the hero.
   Browsers without support just show the content. No JS involved.
 - **Tiers** (`lib/perf-tier.ts`, decided once on mount): `full` desktop,
   `lite` for touch/low-memory devices (fewer particles, lower DPR), `static`
-  for `prefers-reduced-motion` / very weak devices / WebGL failure (SVG
+  for `prefers-reduced-motion` / very weak devices / unavailable WebGL2 (SVG
   diagram, text-only updates). The ticker updates in every tier. The hero
-  must never look broken: connection trouble and WebGL failure both degrade
-  to a calm diagram.
+  must never look broken: a WebGL2 capability check runs before Canvas mounts,
+  and unavailable contexts select the calm SVG diagram. The probe context is
+  released immediately. Connection trouble retains the existing diagram.
 - **Pausing**: rendering stops entirely (`frameloop="never"`) when the tab is
   hidden, the canvas is off-screen, or the journey has faded it out
   (`hooks/useHeroActive.ts`). The pause button swaps in the static diagram

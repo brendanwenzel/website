@@ -20,6 +20,22 @@ export function detectTier(): Tier {
   const deviceMemory = (navigator as Navigator & { deviceMemory?: number }).deviceMemory;
   if (deviceMemory !== undefined && deviceMemory <= 2) return 'static';
 
+  // R3F configures its renderer asynchronously, so a rejected WebGL context
+  // can bypass the React error boundary. Choose the SVG before mounting Canvas
+  // when this browser cannot create the WebGL2 context that Three.js requires.
+  try {
+    const canvas = document.createElement('canvas');
+    const context = canvas.getContext('webgl2', {
+      antialias: false,
+      powerPreference: 'low-power',
+      alpha: true,
+    });
+    if (!context) return 'static';
+    context.getExtension('WEBGL_lose_context')?.loseContext();
+  } catch {
+    return 'static';
+  }
+
   const coarsePointer = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
   if (coarsePointer || (deviceMemory !== undefined && deviceMemory <= 4)) return 'lite';
 
