@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 
-import { PageHeader } from '@/components/site/PageHeader';
+import { PageHeader } from '@/components/PageHeader';
 import { Prose } from '@/components/site/Prose';
 
 export const metadata: Metadata = {
@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 export default function PrivacyPolicyPage() {
   return (
     <div className="mx-auto max-w-3xl px-6 pb-24 pt-32">
-      <PageHeader title="Privacy Policy" lead="Last updated: 04/16/2025" />
+      <PageHeader variant="plain" title="Privacy Policy" intro="Last updated: 04/16/2025" />
       <Prose>
         <h2>Introduction</h2>
         <p>

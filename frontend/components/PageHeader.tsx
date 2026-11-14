@@ -20,7 +20,8 @@ export interface HeaderNode {
   name: string;
 }
 
-interface PageHeaderProps {
+interface IllustratedPageHeaderProps {
+  variant?: 'illustrated';
   /** Colour of the node (single layout). */
   accent: string;
   /** Mono label under the node (single layout). */
@@ -32,6 +33,12 @@ interface PageHeaderProps {
   /** When set, draws these nodes small in a row, each a link, pulsing in turn. */
   nodes?: HeaderNode[];
 }
+
+type PageHeaderProps = IllustratedPageHeaderProps | {
+  variant: 'plain';
+  title: string;
+  intro?: string;
+};
 
 /* Icosahedron wireframe, projected once at module load. */
 
@@ -305,7 +312,19 @@ function NodeRow({ nodes, gid }: { nodes: HeaderNode[]; gid: string }) {
   );
 }
 
-export function PageHeader({ accent, label, title, intro, pulseColors, nodes }: PageHeaderProps) {
+export function PageHeader(props: PageHeaderProps) {
+  if (props.variant === 'plain') {
+    return (
+      <header className="mb-12">
+        <h1 className="text-4xl font-semibold tracking-tight text-zinc-50">{props.title}</h1>
+        {props.intro ? <p className="mt-4 max-w-2xl text-lg text-zinc-400">{props.intro}</p> : null}
+      </header>
+    );
+  }
+  return <IllustratedPageHeader {...props} />;
+}
+
+function IllustratedPageHeader({ accent, label, title, intro, pulseColors, nodes }: IllustratedPageHeaderProps) {
   const gid = `ph${useId().replace(/[^a-zA-Z0-9]/g, '')}`;
   const row = nodes && nodes.length > 0;
   return (

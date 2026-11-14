@@ -90,7 +90,9 @@ export function CameraRig({ groupX, fitHero, emphasis }: CameraRigProps) {
         height / 2 / (scale * tan),
       );
     } else {
-      target.current.set(0, 0, LEGACY_DISTANCE);
+      // The mobile visual is a separate, shorter box below the copy.
+      // Centre it for both touch devices and narrow desktop windows.
+      target.current.set(width < 768 ? groupX : 0, 0, LEGACY_DISTANCE);
     }
 
     if (journey.enabled && journey.blend > 0) {

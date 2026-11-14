@@ -1,10 +1,10 @@
 import HeroVisual from './HeroVisual';
 
-const HERO_HEIGHT = 'min-h-[max(760px,100svh)]';
+const HERO_HEIGHT = 'md:min-h-[max(760px,100svh)]';
 
 /**
- * Backdrop for the top of the home page (hero + Expertise). Rendered by
- * app/page.tsx as the first child of the wrapper that holds both sections.
+ * On phones the graph has its own space after the hero copy. On desktop
+ * it is the backdrop for the hero and Expertise within their shared wrapper.
  *
  *   0. static radial-gradient, hero sized (always painted: the WebGL
  *      placeholder AND the calm "offline" look)
@@ -14,14 +14,14 @@ const HERO_HEIGHT = 'min-h-[max(760px,100svh)]';
  *
  * The box runs one viewport past the wrapper's bottom edge (the wrapper
  * clips it) so the sticky canvas is never pushed up by the end of its
- * container. Everything here is absolutely positioned: zero layout shift by
- * construction. pointer-events-none keeps clicks and text selection on the
+ * container. The mobile height is reserved before the visual loads.
+ * pointer-events-none keeps clicks and text selection on the
  * content above it; the pause button opts back in.
  */
 export function HeroBackdrop() {
   return (
-    <div className="pointer-events-none absolute inset-x-0 top-0 -bottom-[100svh]">
-      <div className="absolute inset-x-0 top-0 h-[max(760px,100svh)] bg-[radial-gradient(ellipse_at_65%_40%,_#122031_0%,_#09090b_70%)]" />
+    <div className="pointer-events-none relative h-[520px] md:absolute md:inset-x-0 md:top-0 md:-bottom-[100svh] md:h-auto">
+      <div className="absolute inset-x-0 top-0 h-full md:h-[max(760px,100svh)] bg-[radial-gradient(ellipse_at_65%_40%,_#122031_0%,_#09090b_70%)]" />
       <HeroVisual />
     </div>
   );
@@ -35,9 +35,9 @@ export function HeroBackdrop() {
  */
 export function HeroSection() {
   return (
-    <section className={`relative ${HERO_HEIGHT}`}>
+    <section className={`relative md:z-10 ${HERO_HEIGHT}`}>
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-zinc-950/85 via-zinc-950/35 to-transparent [mask-image:linear-gradient(to_bottom,black_75%,transparent)]" />
-      <div className={`pointer-events-none relative z-10 mx-auto flex ${HERO_HEIGHT} max-w-6xl flex-col justify-center px-6 pb-56 pt-32`}>
+      <div className={`pointer-events-none relative z-10 mx-auto flex ${HERO_HEIGHT} max-w-6xl flex-col justify-center px-6 pb-12 pt-16 md:pb-56 md:pt-32`}>
         <p className="pointer-events-auto w-fit font-mono text-sm text-emerald-400/80">
           three systems I run · simulated activity
         </p>

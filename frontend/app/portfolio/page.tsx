@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { CountUp } from '@/components/portfolio/CountUp';
 import { RiseChart } from '@/components/portfolio/RiseChart';
 import styles from '@/components/portfolio/timeline.module.css';
-import { PageHeader } from '@/components/site/PageHeader';
+import { PageHeader } from '@/components/PageHeader';
 
 export const metadata: Metadata = {
   title: 'Portfolio',
@@ -126,8 +126,9 @@ export default function PortfolioPage() {
   return (
     <div className="mx-auto max-w-4xl px-6 pb-24 pt-32">
       <PageHeader
+        variant="plain"
         title="Portfolio"
-        lead="Over my 16+ year career, I've helped numerous clients achieve significant growth through strategic digital marketing initiatives. Here are some of my most notable projects and achievements."
+        intro="Over my 16+ year career, I've helped numerous clients achieve significant growth through strategic digital marketing initiatives. Here are some of my most notable projects and achievements."
       />
       <p className="mb-16 flex items-baseline gap-3 font-mono sm:mb-20">
         <span className="text-5xl font-medium tracking-tight text-zinc-50 sm:text-6xl">

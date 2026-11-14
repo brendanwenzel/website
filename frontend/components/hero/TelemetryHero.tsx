@@ -10,7 +10,8 @@ import { Scene } from './Scene';
 import { StaticDiagram } from './StaticDiagram';
 import { Ticker } from './Ticker';
 
-const HERO_BOX = 'inset-x-0 top-0 h-[max(760px,100svh)]';
+const HERO_BOX = 'inset-x-0 top-0 h-full md:h-[max(760px,100svh)]';
+const VISUAL_BOX = 'inset-x-0 top-12 h-[280px] md:top-0 md:h-[max(760px,100svh)]';
 
 /**
  * Loaded via dynamic(ssr:false): everything below here is browser-only.
@@ -41,7 +42,7 @@ export default function TelemetryHero({ tier }: { tier: Tier }) {
       <div
         ref={layerRef}
         aria-hidden="true"
-        className={`${journey ? 'sticky' : 'absolute'} ${HERO_BOX} isolate w-full`}
+        className={`${journey ? 'sticky' : 'absolute'} ${VISUAL_BOX} isolate w-full`}
       >
         {paused || tier === 'static' ? (
           <StaticDiagram latest={paused ? null : telemetry.latest} />

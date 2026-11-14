@@ -80,12 +80,12 @@ export default function HomePage() {
           without creating a scroll container, which would break its sticky
           canvas. isolate keeps the backdrop's layers under the header. */}
       <div className="relative isolate overflow-clip">
-        <HeroBackdrop />
         <div
           aria-hidden="true"
           className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-b from-transparent to-zinc-950"
         />
         <HeroSection />
+        <HeroBackdrop />
 
         <section data-journey-section="" className="relative mx-auto max-w-6xl px-6 py-24">
           <h2 className="w-fit text-3xl font-semibold tracking-tight text-zinc-50">

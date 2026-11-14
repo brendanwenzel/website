@@ -69,9 +69,13 @@ anything off-contract, so garbage on the stream can't break the hero.
   sits behind the headline. The column constants at the top of
   `CameraRig.tsx` mirror `HeroSection`; change them together. Windows too
   narrow for that keep the original centred pose, as does the lite tier.
+  Below 768px, the hero copy stays in normal flow and the diagram has a
+  reserved 520px section below it, including its controls and ticker. The
+  280px visual cannot overlap the copy, including with larger text.
 - **Backdrop layer**: `app/page.tsx` wraps the hero and the Expertise section
-  in one `relative isolate overflow-clip` box. `HeroBackdrop` is its first
-  child and holds the gradient and the visual. It is `pointer-events-none`
+  in one `relative isolate overflow-clip` box. `HeroBackdrop` is the
+  desktop backdrop and holds the gradient and the visual. On phones it
+  follows the copy in normal document flow. It is `pointer-events-none`
   (only the pause button opts back in), so it never blocks clicks or text
   selection on the content above it. The Expertise cards carry a 90% scrim
   for text contrast over the canvas.
